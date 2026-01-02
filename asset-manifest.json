@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ewather-app/static/css/main.c6473867.css",
+    "main.js": "/ewather-app/static/js/main.e0588f77.js",
+    "index.html": "/ewather-app/index.html",
+    "main.c6473867.css.map": "/ewather-app/static/css/main.c6473867.css.map",
+    "main.e0588f77.js.map": "/ewather-app/static/js/main.e0588f77.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6473867.css",
+    "static/js/main.e0588f77.js"
+  ]
+}

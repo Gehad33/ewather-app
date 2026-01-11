@@ -2,59 +2,400 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px;
-  transition: background 0.5s ease;
+  transition: all 0.5s ease;
+  animation: gradientShift 15s ease infinite alternate;
+  background-size: 400% 400%;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .App.cloudy {
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  animation: cloudySky 20s linear infinite;
+}
+
+@keyframes cloudySky {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
 }
 
 .App.rainy {
   background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.App.rainy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(transparent 95%, rgba(255, 255, 255, 0.2) 100%);
+  background-size: 100% 20px;
+  animation: rain 0.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rain {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 20px;
+  }
 }
 
 .App.sunny {
   background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  position: relative;
+}
+
+.App.sunny::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: sunrays 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes sunrays {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .App.stormy {
   background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  animation: lightning 10s infinite;
 }
 
+@keyframes lightning {
+  0%, 90%, 100% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.8;
+  }
+}
+
+.App.misty {
+  background: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+}
+
+.App.snowy {
+  background: linear-gradient(135deg, #e6dada 0%, #274046 100%);
+  position: relative;
+}
+
+.App.snowy::before {
+  content: '❄';
+  position: absolute;
+  color: white;
+  opacity: 0.5;
+  animation: snowfall 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* تأثيرات البحث */
+body.searching * {
+  animation: pulseGlow 1s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+}
+
+body.search-success .search-input-wrapper {
+  animation: successBounce 0.5s ease;
+}
+
+@keyframes successBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+body.search-error .search-input-wrapper {
+  animation: errorShake 0.5s ease;
+  border-color: #ef4444 !important;
+}
+
+@keyframes errorShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+/* تحسينات إضافية */
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-/* Header */
 .header {
   text-align: center;
   margin-bottom: 40px;
-  padding: 30px;
+  padding: 40px;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: headerGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes headerGlow {
+  from {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  to {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .header h1 {
   color: white;
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 10px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #fff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .header p {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  animation: fadeIn 1s ease-out;
 }
 
-/* Main content */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+  animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recent-searches {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  flex: 1;
+  min-width: 300px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.recent-searches:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.recent-searches h3 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recent-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.recent-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.recent-tag::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.recent-tag:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.recent-tag:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.clear-recent {
+  background: rgba(239, 68, 68, 0.2);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-recent:hover {
+  background: rgba(239, 68, 68, 0.3);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.unit-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 15px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: togglePulse 2s infinite;
+}
+
+@keyframes togglePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+}
+
+.unit-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
 .main-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 30px;
   margin-bottom: 30px;
+  animation: contentAppear 0.5s ease-out 0.2s both;
+}
+
+@keyframes contentAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -63,113 +404,153 @@
   }
 }
 
-/* Footer */
+.forecast-section {
+  animation: forecastAppear 0.5s ease-out 0.4s both;
+}
+
+@keyframes forecastAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .footer {
   text-align: center;
-  padding: 20px;
+  padding: 25px;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-}
-
-/* Error Message */
-.error-message {
-  background: rgba(220, 38, 38, 0.9);
-  color: white;
-  padding: 20px;
-  border-radius: 15px;
-  margin: 20px 0;
-  text-align: center;
-  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  margin-top: 40px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  animation: shake 0.5s ease;
+  animation: footerFloat 3s ease-in-out infinite alternate;
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+@keyframes footerFloat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
 }
 
-/* Recent Searches */
-.recent-searches {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 20px;
-  margin: 20px 0;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.recent-searches h3 {
-  color: white;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-}
-
-.recent-tags {
+.footer-note {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
-.recent-tag {
-  background: rgba(255, 255, 255, 0.15);
+.error-message {
+  background: rgba(220, 38, 38, 0.9);
   color: white;
-  border: none;
-  padding: 8px 16px;
+  padding: 25px;
   border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-.recent-tag:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-}
-
-/* Controls */
-.controls {
+  margin: 20px 0;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: errorShake 0.5s ease, fadeIn 0.3s ease-out;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 15px;
+  position: relative;
+  overflow: hidden;
 }
 
-.unit-toggle {
-  background: rgba(255, 255, 255, 0.15);
+.error-message::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, white, transparent);
+  animation: errorLine 2s linear infinite;
+}
+
+@keyframes errorLine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.dismiss-error {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 10px 20px;
-  border-radius: 25px;
+  padding: 5px 15px;
+  border-radius: 50%;
   cursor: pointer;
-  font-weight: 600;
-  backdrop-filter: blur(10px);
+  font-size: 1.2rem;
   transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.unit-toggle:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05);
+.dismiss-error:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
 }
 
-/* Responsive */
+/* أنيميشن للبطاقات */
+.weather-card,
+.air-quality-card,
+.forecast-container {
+  animation: cardFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes cardFloat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+/* تأثيرات تحميل */
+.loading-overlay {
+  animation: overlayFade 0.3s ease-out;
+}
+
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* تحسينات للجوال */
 @media (max-width: 768px) {
   .App {
     padding: 10px;
   }
   
   .header {
-    padding: 20px;
+    padding: 25px;
   }
   
   .header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
   .controls {
@@ -177,7 +558,36 @@
     align-items: stretch;
   }
   
+  .recent-searches {
+    min-width: auto;
+  }
+  
   .unit-toggle {
     width: 100%;
+    justify-content: center;
+  }
+  
+  .main-content,
+  .forecast-section {
+    animation: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 20px;
+  }
+  
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .header p {
+    font-size: 1rem;
+  }
+  
+  .recent-tag {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 }
